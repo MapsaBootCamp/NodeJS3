@@ -2,7 +2,8 @@
 let name = "John Doe";
 console.log("Hello World!");
 
-// javascript datatypes: String, Number, Boolean, Undefined, Null
+// javascript datatypes: String, Number, Boolean, Undefined, Null, Bigint, Symbol
+
 let username = "camp";
 
 let age = 250484456948;

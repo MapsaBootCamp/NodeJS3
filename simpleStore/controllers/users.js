@@ -1,10 +1,18 @@
-const { users, products, comments } = require("../data");
+const { users } = require("../data");
+const { logger } = require("../providers");
+const _ = require("lodash");
+const { validationResult } = require("express-validator");
+const { ValidationError } = require("../errors");
 
 module.exports = {
   userList: (req, res) => {
     res.json(users.map((user) => ({ id: user.id, name: user.userName })));
   },
   userDetail: (req, res) => {
+    const valResult = validationResult(req);
+
+    console.log(valResult.array());
+
     const { userId } = req.params;
     console.log(typeof userId);
     if (!Number.isInteger(+userId)) {
@@ -12,12 +20,13 @@ module.exports = {
     }
     res.json(users.find((user) => user.id === +userId));
   },
-  createUser: (req, res) => {
+  createUser: (req, res, next) => {
     const user = { id: users.length + 1, ...req.body };
+    logger.info(`${JSON.stringify(_.omit(user, ["password"]))} created!`);
     users.push(user);
     res.status(201).json({
       status: "success",
-      message: user,
+      message: _.omit(user, ["password"]),
     });
   },
   updateUser: (req, res) => {

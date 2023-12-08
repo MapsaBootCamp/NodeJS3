@@ -1,0 +1,2 @@
+docker run -d --name node3-sql -p 5432:5432 -e POSTGRES_DB="node3test" -e POSTGRES_USER="postgres" -e POSTGRES_PASSWORD="admin" postgres
+

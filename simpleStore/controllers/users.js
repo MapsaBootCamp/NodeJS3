@@ -3,10 +3,13 @@ const { logger } = require("../providers");
 const _ = require("lodash");
 const { validationResult } = require("express-validator");
 const { ValidationError } = require("../errors");
+const client = require("../db");
 
 module.exports = {
-  userList: (req, res) => {
-    res.json(users.map((user) => ({ id: user.id, name: user.userName })));
+  userList: async (req, res) => {
+    const customers = await client.query("SELECT * FROM customer;");
+    res.json(customers.rows);
+    // res.json(users.map((user) => ({ id: user.id, name: user.userName })));
   },
   userDetail: (req, res) => {
     const valResult = validationResult(req);

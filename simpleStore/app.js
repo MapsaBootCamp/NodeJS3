@@ -4,6 +4,8 @@ const router = require("./routes");
 const { logger } = require("./middlewares");
 const { ValidationError } = require("./errors");
 const app = express();
+const client = require("./db");
+
 const PORT = process.env.PORT;
 
 /// middlewares
@@ -35,6 +37,18 @@ app.use((err, req, res, next) => {
   });
 });
 
-app.listen(PORT, () => {
-  console.log(`server is running on ${PORT}`);
-});
+client
+  .connect()
+  .then(async () => {
+    console.log("connected to db");
+    const customers = await client.query("SELECT * FROM customer;");
+    for (const customer of customers.rows) {
+      console.log("+++++++++++++++++");
+      console.log(customer);
+      console.log("+++++++++++++++++");
+    }
+    app.listen(PORT, () => {
+      console.log(`server is running on ${PORT}`);
+    });
+  })
+  .catch((err) => console.log(err));

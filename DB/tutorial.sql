@@ -1,0 +1,13 @@
+SELECT * FROM actor;
+SELECT first_name FROM actor;
+SELECT DISTINCT * FROM actor;
+SELECT COUNT(DISTINCT country_id) AS count_country FROM city;
+SELECT * FROM country;
+SELECT * FROM city;
+SELECT * FROM city WHERE country_id=46;
+SELECT * FROM rental LIMIT 20 OFFSET (SELECT COUNT(*) - 21 FROM rental);
+DECLARE gholam SCROLL CURSOR FOR SELECT * FROM film OFFSET 10;
+FETCH first FROM gholam;
+FETCH NEXT FROM gholam;
+SELECT * FROM film LIMIT 2 OFFSET 10;
+SELECT R.rental_date, email FROM rental R FULL JOIN customer C ON R.customer_id=C.customer_id;

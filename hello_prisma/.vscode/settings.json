@@ -1,0 +1,14 @@
+{
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 5432,
+            "driver": "PostgreSQL",
+            "name": "todoApp",
+            "username": "postgres",
+            "password": "admin",
+            "database": "node3test"
+        }
+    ]
+}

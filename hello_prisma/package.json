@@ -5,7 +5,8 @@
   "license": "MIT",
   "scripts": {
     "start": "nodemon app.js",
-    "seed": "node prisma/seeds.js"
+    "seed": "node prisma/seeds.js",
+    "migrate": "prisma generate && prisma migrate deploy"
   },
   "devDependencies": {
     "nodemon": "^3.0.2",

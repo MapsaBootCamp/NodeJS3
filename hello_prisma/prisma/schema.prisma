@@ -27,6 +27,7 @@ model User {
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
     Tag       Tag[]
+    Token     Token[]
 }
 
 model Task {
@@ -63,4 +64,12 @@ model TagTask {
     updatedAt DateTime @updatedAt
 
     @@id([tagId, taskId])
+}
+
+model Token {
+    id        Int      @id @default(autoincrement())
+    user      User     @relation(fields: [userId], references: [username], onDelete: Cascade)
+    userId    String
+    token     String
+    createdAt DateTime @default(now())
 }

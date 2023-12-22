@@ -1,0 +1,1 @@
+exports.MyError = require("./myError");

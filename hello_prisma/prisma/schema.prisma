@@ -25,9 +25,11 @@ model User {
     role      Role     @default(USER)
     Task      Task[]
     createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+    updatedAt DateTime @updatedAt // @map("changeDataTime")
     Tag       Tag[]
     Token     Token[]
+
+    //    @@map("customers")
 }
 
 model Task {

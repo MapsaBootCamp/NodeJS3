@@ -1,2 +1,2 @@
 docker run -d --name node3-sql -p 5432:5432 -e POSTGRES_DB="node3test" -e POSTGRES_USER="postgres" -e POSTGRES_PASSWORD="admin" postgres
-
+docker run -d --name elearning -p 27017:27017 -v elearning:/data/db mongo

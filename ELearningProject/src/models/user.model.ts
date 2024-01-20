@@ -1,18 +1,40 @@
 import { model, Schema, Document } from "mongoose";
-import { IUser } from "@interfaces/user.interface";
+import { IUser, Role } from "@interfaces/user.interface";
 
-const userSchema: Schema = new Schema({
-  username: {
-    type: String,
-    required: true,
-    unique: true,
-  },
-  password: {
-    type: String,
-    required: true,
-  },
-});
+export type UserDocument = IUser & Document;
 
-const userModel = model<IUser & Document>("User", userSchema);
+const userSchema: Schema = new Schema(
+  {
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    password: {
+      type: String,
+      required: true,
+    },
+    phoneNumber: String,
+    birthDate: Date,
+    verifiedEmail: {
+      type: Boolean,
+      default: false,
+    },
+    active: {
+      type: Boolean,
+      default: true,
+    },
+    role: {
+      type: String,
+      enum: Role,
+      default: Role.User,
+    },
+  },
+  {
+    timestamps: true,
+  }
+);
+
+const userModel = model<UserDocument>("User", userSchema);
 
 export default userModel;

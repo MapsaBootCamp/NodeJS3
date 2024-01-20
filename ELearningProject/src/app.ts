@@ -1,7 +1,9 @@
+import { Request, Response, NextFunction } from "express";
 import * as express from "express";
 import { PORT, DB_HOST, DB_PORT, DB_DATABASE } from "@/config";
 import { IRoute } from "@/interfaces/route.interface";
 import { connect } from "mongoose";
+import { HttpException } from "@exceptions/http.exception";
 
 class App {
   private app: express.Application;
@@ -11,9 +13,10 @@ class App {
     this.app = express();
     this.port = PORT || 3000;
 
-    // this.dbConnection();
+    this.dbConnection();
     this.setupMiddlewares();
     this.setupRoutes(routes);
+    this.errorHandler();
   }
 
   public listen() {
@@ -39,6 +42,15 @@ class App {
   private setupRoutes(routes: IRoute[]) {
     routes.forEach((route) => {
       this.app.use(route.path, route.router);
+    });
+  }
+
+  private errorHandler() {
+    this.app.use((err, req: Request, res: Response, next: NextFunction) => {
+      if (err instanceof HttpException) {
+        return res.status(err.statusCode).send(err.message);
+      }
+      return res.send(err.message);
     });
   }
 }

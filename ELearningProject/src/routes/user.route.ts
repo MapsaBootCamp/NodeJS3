@@ -1,6 +1,6 @@
 import { Router } from "express";
 import UserController from "@controllers/user.controller";
-import { CreateUserDto } from "@dtos/user.dto";
+import { CreateUserDto, UpdateUserDto } from "@dtos/user.dto";
 import { IRoute } from "@interfaces/route.interface";
 import validationMiddleware from "@middlewares/validation.middleware";
 
@@ -15,6 +15,7 @@ class UserRoute implements IRoute {
 
   private setupRoutes() {
     this.router.get(`/`, this.userController.getUsers);
+
     this.router.get(`/:id`, this.userController.getUserById);
     this.router.post(
       `/`,
@@ -23,7 +24,7 @@ class UserRoute implements IRoute {
     );
     this.router.put(
       `/:id`,
-      validationMiddleware(CreateUserDto, "body", true),
+      validationMiddleware(UpdateUserDto, "body", true),
       this.userController.updateUser
     );
     this.router.delete(`/:id`, this.userController.deleteUser);

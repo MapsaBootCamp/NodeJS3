@@ -2,7 +2,7 @@ import { Router } from "express";
 import { IRoute } from "@interfaces/route.interface";
 
 class IndexRoute implements IRoute {
-  public path = "/";
+  public prefix = "/";
   public router = Router();
 
   constructor() {

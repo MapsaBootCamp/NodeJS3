@@ -1,11 +1,18 @@
 import { Router } from "express";
 import UserController from "@controllers/user.controller";
-import { CreateUserDto, UpdateUserDto } from "@dtos/user.dto";
 import { IRoute } from "@interfaces/route.interface";
-import validationMiddleware from "@middlewares/validation.middleware";
+
+import {
+  CLASS_MIDDLEWARE_METADATA,
+  MIDDLEWARE_METADATA,
+  MiddlewareMetaData,
+  PATH_METADATA,
+  ROUTE_METADATA,
+  RequestMappingMetadata,
+} from "@/common";
 
 class UserRoute implements IRoute {
-  public path = "/users";
+  public prefix: string;
   public router = Router();
   public userController = new UserController();
 
@@ -14,20 +21,53 @@ class UserRoute implements IRoute {
   }
 
   private setupRoutes() {
-    this.router.get(`/`, this.userController.getUsers);
+    this.prefix = Reflect.getMetadata(PATH_METADATA, UserController);
+    let middleware: MiddlewareMetaData = Reflect.getMetadata(
+      MIDDLEWARE_METADATA,
+      UserController
+    );
 
-    this.router.get(`/:id`, this.userController.getUserById);
-    this.router.post(
-      `/`,
-      validationMiddleware(CreateUserDto, "body"),
-      this.userController.createUser
+    console.log("middleware", middleware);
+
+    if (middleware[CLASS_MIDDLEWARE_METADATA].length > 0) {
+      this.router.use(...middleware[CLASS_MIDDLEWARE_METADATA]);
+    }
+
+    const routes: Array<RequestMappingMetadata> = Reflect.getMetadata(
+      ROUTE_METADATA,
+      this.userController
     );
-    this.router.put(
-      `/:id`,
-      validationMiddleware(UpdateUserDto, "body", true),
-      this.userController.updateUser
-    );
-    this.router.delete(`/:id`, this.userController.deleteUser);
+
+    routes.forEach((route) => {
+      if (middleware[route.methodName]) {
+        this.router[route.requestMethod](
+          route.path,
+          ...middleware[route.methodName],
+          (req, res, next) => {
+            this.userController[route.methodName](req, res, next);
+          }
+        );
+      } else {
+        this.router[route.requestMethod](route.path, (req, res, next) => {
+          this.userController[route.methodName](req, res, next);
+        });
+      }
+    });
+
+    // this.router.get(`/`, this.userController.getUsers);
+    // this.router.get(`/:id`, this.userController.getUserById);
+
+    // this.router.post(
+    //   `/`,
+    //   validationMiddleware(CreateUserDto, "body"),
+    //   this.userController.createUser
+    // );
+    // this.router.put(
+    //   `/:id`,
+    //   validationMiddleware(UpdateUserDto, "body", true),
+    //   this.userController.updateUser
+    // );
+    // this.router.delete(`/:id`, this.userController.deleteUser);
   }
 }
 

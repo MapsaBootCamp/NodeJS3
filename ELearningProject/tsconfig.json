@@ -15,6 +15,7 @@
     "paths": {
       "@/*": ["*"],
       "@config": ["config"],
+      "@common": ["common"],
       "@controllers/*": ["controllers/*"],
       "@dtos/*": ["dtos/*"],
       "@exceptions/*": ["exceptions/*"],

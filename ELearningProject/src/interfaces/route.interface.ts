@@ -1,6 +1,6 @@
 import { Router } from "express";
 
 export interface IRoute {
-  path: string;
+  prefix: string;
   router: Router;
 }

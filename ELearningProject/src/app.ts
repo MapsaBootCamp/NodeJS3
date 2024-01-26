@@ -1,3 +1,4 @@
+import "reflect-metadata";
 import { Request, Response, NextFunction } from "express";
 import * as express from "express";
 import { PORT, DB_HOST, DB_PORT, DB_DATABASE } from "@/config";
@@ -41,7 +42,7 @@ class App {
 
   private setupRoutes(routes: IRoute[]) {
     routes.forEach((route) => {
-      this.app.use(route.path, route.router);
+      this.app.use(route.prefix, route.router);
     });
   }
 

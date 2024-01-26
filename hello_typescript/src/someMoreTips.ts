@@ -34,15 +34,15 @@ function doSomthing(): never {
 console.log("GoodBye!");
 
 ////// intersection type ===> &
-interface A {
+interface A1 {
   username: string;
 }
 
-interface B {
+interface B1 {
   pass: string;
 }
 
-type User = A & B;
+type User = A1 & B1;
 
 const user1: User = {
   username: "A",

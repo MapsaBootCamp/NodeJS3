@@ -1,19 +1,5 @@
-import { Router } from "express";
-import { IRoute } from "@interfaces/route.interface";
+import Route from "@/common/route";
 
-class IndexRoute implements IRoute {
-  public prefix = "/";
-  public router = Router();
-
-  constructor() {
-    this.initializeRoutes();
-  }
-
-  private initializeRoutes() {
-    this.router.get(`/`, (req, res, next) => {
-      return res.send("Welcome!");
-    });
-  }
-}
+class IndexRoute extends Route {}
 
 export default IndexRoute;

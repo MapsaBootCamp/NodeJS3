@@ -13,4 +13,9 @@ export class TodoService {
     this.todos.push(todo);
     return todo;
   }
+
+  deleteTask(id: string) {
+    const taskIndex = this.todos.findIndex((todo) => todo.id === id);
+    this.todos.splice(taskIndex, 1);
+  }
 }

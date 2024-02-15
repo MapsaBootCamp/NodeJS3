@@ -1,19 +1,19 @@
 import { Body, Controller, Get, Post } from '@nestjs/common';
-import { AppService } from './todo.service';
+import { TodoService } from './todo.service';
 import { Todo } from './todo.interface';
 import { TodoDto } from './todo.dto';
 
 @Controller()
 export class TodoController {
-  constructor(private readonly appService: AppService) {}
+  constructor(private readonly todoService: TodoService) {}
 
   @Get()
   getHello(): Todo[] {
-    return this.appService.getAllTask();
+    return this.todoService.getAllTask();
   }
 
   @Post()
   createTodo(@Body() todo: TodoDto): Todo {
-    return this.appService.createTask({ ...todo, done: false });
+    return this.todoService.createTask({ ...todo, done: false });
   }
 }

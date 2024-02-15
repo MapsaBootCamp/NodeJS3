@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { Todo } from './app.interface';
+import { Todo } from './todo.interface';
 
 @Injectable()
-export class AppService {
+export class TodoService {
   private todos: Todo[] = [];
 
   getAllTask(): Todo[] {

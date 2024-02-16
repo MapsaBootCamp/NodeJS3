@@ -1,4 +1,4 @@
-import { IsString, IsDate, IsNotEmpty } from 'class-validator';
+import { IsString, IsDate, IsNotEmpty, IsOptional } from 'class-validator';
 import { Type } from 'class-transformer';
 
 export class TodoDto {
@@ -8,5 +8,6 @@ export class TodoDto {
 
   @Type(() => Date)
   @IsDate()
+  @IsOptional()
   dueDate: Date;
 }

@@ -1,0 +1,1 @@
+export const CREDENTIAL_ERROR_CODE = 102;

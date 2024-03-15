@@ -7,13 +7,17 @@ import {
   Param,
   Delete,
   Req,
+  UseGuards,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { Public } from 'src/common/decorators/public.decorator';
-import { Request } from 'express';
+import { RoleGuard } from 'src/common/guards/role.guard';
+import { Role as IRole } from './schemas/user.schema';
+import { Role } from 'src/common/decorators/role.decorator';
 
+@UseGuards(RoleGuard)
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
@@ -24,6 +28,7 @@ export class UserController {
     return await this.userService.create(createUserDto);
   }
 
+  @Role(IRole.ADMIN)
   @Get()
   async findAll() {
     return await this.userService.findAll();
@@ -39,6 +44,7 @@ export class UserController {
     return await this.userService.update(id, updateUserDto);
   }
 
+  
   @Delete(':id')
   async remove(@Param('id') id: string) {
     return await this.userService.remove(id);

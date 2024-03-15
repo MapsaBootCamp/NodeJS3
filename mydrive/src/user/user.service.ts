@@ -33,4 +33,10 @@ export class UserService {
   async findByUsername(username: string): Promise<User> {
     return await this.userModel.findOne({ username });
   }
+
+  async assignPermission(userId: string, permissionsId) {
+    return await this.userModel.findByIdAndUpdate(userId, {
+      $push: { permissions: { $each: permissionsId } },
+    });
+  }
 }

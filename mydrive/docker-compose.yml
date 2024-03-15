@@ -19,6 +19,7 @@ services:
       - PORT=${PORT}
     ports:
       - '3000:3000'
+      - '81:81'
     depends_on:
       - mongodb
     volumes:

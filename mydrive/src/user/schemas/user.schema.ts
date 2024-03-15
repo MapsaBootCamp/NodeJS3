@@ -1,8 +1,8 @@
 import * as mongoose from 'mongoose';
 
 export enum Role {
-  USER,
-  ADMIN,
+  USER = 'user',
+  ADMIN = 'admin',
 }
 
 export const userSchema = new mongoose.Schema({
@@ -11,4 +11,5 @@ export const userSchema = new mongoose.Schema({
   email: String,
   password: { type: String, required: true },
   role: { type: String, enum: Role, default: Role.USER },
+  permissions: [{ type: mongoose.Types.ObjectId, ref: 'Permission' }],
 });

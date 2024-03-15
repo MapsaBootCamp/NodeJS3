@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test WebSocket</title>
+</head>
+
+<body>
+    <h1>HELLO</h1>
+    <script src="https://cdn.socket.io/4.7.4/socket.io.min.js"></script>
+    <script>
+        const socket = io("localhost:3000/user")
+        socket.emit("events", "Gholi", (res) => {
+            console.log("salam be", res);
+        })
+
+        socket.on("harchi", (data) => {
+            console.log(data);
+        })
+    </script>
+
+</body>
+
+</html>

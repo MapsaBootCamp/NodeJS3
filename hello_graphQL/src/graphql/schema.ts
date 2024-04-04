@@ -1,11 +1,12 @@
 import { GraphQLObjectType, GraphQLSchema } from "graphql";
-import { AuthorsQuery } from "./queries";
+import { AuthorDetailQuery, AuthorsQuery } from "./queries";
 
 const rootQuery = new GraphQLObjectType({
   name: "RootQuery",
   description: "hame Query ha",
   fields: {
     authorsList: AuthorsQuery,
+    authorDetail: AuthorDetailQuery,
   },
 });
 

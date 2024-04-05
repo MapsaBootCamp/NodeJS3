@@ -1,10 +1,20 @@
 import {
   GraphQLInt,
+  GraphQLList,
   GraphQLNonNull,
   GraphQLObjectType,
   GraphQLString,
 } from "graphql";
-import { Authors } from "../../db";
+import { Authors, Books } from "../../db";
+
+const BookBasicType = new GraphQLObjectType({
+  name: "BookQuery",
+  description: "Book Query",
+  fields: {
+    id: { type: GraphQLNonNull(GraphQLInt) },
+    name: { type: GraphQLString },
+  },
+});
 
 export const AuthorsType = new GraphQLObjectType({
   name: "AuthorsQuery",
@@ -22,6 +32,12 @@ export const AuthorType = new GraphQLObjectType({
     id: { type: GraphQLNonNull(GraphQLInt) },
     name: { type: GraphQLString },
     desctiption: { type: GraphQLString },
+    books: {
+      type: GraphQLList(BookBasicType),
+      resolve: (parent) => {
+        return Books.filter((book) => book.authorId === parent.id);
+      },
+    },
   },
 });
 

@@ -1,4 +1,6 @@
 import {
+  GraphQLID,
+  GraphQLInputObjectType,
   GraphQLInt,
   GraphQLList,
   GraphQLNonNull,
@@ -11,7 +13,7 @@ const BookBasicType = new GraphQLObjectType({
   name: "BookQuery",
   description: "Book Query",
   fields: {
-    id: { type: GraphQLNonNull(GraphQLInt) },
+    id: { type: GraphQLNonNull(GraphQLID) },
     name: { type: GraphQLString },
   },
 });
@@ -20,7 +22,7 @@ export const AuthorsType = new GraphQLObjectType({
   name: "AuthorsQuery",
   description: "Authors list Query",
   fields: {
-    id: { type: GraphQLNonNull(GraphQLInt) },
+    id: { type: GraphQLNonNull(GraphQLID) },
     name: { type: GraphQLString },
   },
 });
@@ -29,7 +31,7 @@ export const AuthorType = new GraphQLObjectType({
   name: "AuthorQuery",
   description: "Author Query Detail",
   fields: {
-    id: { type: GraphQLNonNull(GraphQLInt) },
+    id: { type: GraphQLNonNull(GraphQLID) },
     name: { type: GraphQLString },
     desctiption: { type: GraphQLString },
     books: {
@@ -45,7 +47,7 @@ export const BooksType = new GraphQLObjectType({
   name: "BooksQuery",
   description: "Books List Query",
   fields: {
-    id: { type: GraphQLNonNull(GraphQLInt) },
+    id: { type: GraphQLNonNull(GraphQLID) },
     name: { type: GraphQLString },
     author: {
       type: AuthorType,
@@ -53,5 +55,13 @@ export const BooksType = new GraphQLObjectType({
         return Authors.find((author) => author.id === parent.id);
       },
     },
+  },
+});
+
+export const AuthorUpdateType = new GraphQLInputObjectType({
+  name: "AuthorUpdate",
+  description: "",
+  fields: {
+    name: { type: GraphQLString },
   },
 });

@@ -1,4 +1,4 @@
-import { GraphQLInt, GraphQLList } from "graphql";
+import { GraphQLID, GraphQLInt, GraphQLList } from "graphql";
 import { AuthorType, AuthorsType, BooksType } from "./types";
 import { Authors, Books } from "../../db";
 
@@ -14,7 +14,7 @@ export const AuthorsQuery = {
 export const AuthorDetailQuery = {
   type: AuthorType,
   args: {
-    id: { type: GraphQLInt },
+    id: { type: GraphQLID },
   },
   resolve: (_: any, args: any) => {
     try {

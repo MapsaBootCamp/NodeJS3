@@ -1,5 +1,5 @@
 import { GraphQLObjectType, GraphQLSchema } from "graphql";
-import { AuthorDetailQuery, AuthorsQuery } from "./queries";
+import { AuthorDetailQuery, AuthorsQuery, BooksListQuery } from "./queries";
 
 const rootQuery = new GraphQLObjectType({
   name: "RootQuery",
@@ -7,6 +7,7 @@ const rootQuery = new GraphQLObjectType({
   fields: {
     authorsList: AuthorsQuery,
     authorDetail: AuthorDetailQuery,
+    booksList: BooksListQuery,
   },
 });
 

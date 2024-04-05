@@ -1,6 +1,6 @@
 import { GraphQLInt, GraphQLList } from "graphql";
-import { AuthorType, AuthorsType } from "./types";
-import { Authors } from "../../db";
+import { AuthorType, AuthorsType, BooksType } from "./types";
+import { Authors, Books } from "../../db";
 
 export const AuthorsQuery = {
   type: GraphQLList(AuthorsType),
@@ -19,6 +19,15 @@ export const AuthorDetailQuery = {
   resolve: (_: any, args: any) => {
     try {
       return Authors.find((author) => author.id === args.id);
+    } catch (error) {}
+  },
+};
+
+export const BooksListQuery = {
+  type: GraphQLList(BooksType),
+  resolve: (_: any, args: any) => {
+    try {
+      return Books;
     } catch (error) {}
   },
 };

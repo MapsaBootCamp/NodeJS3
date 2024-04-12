@@ -1,0 +1,46 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Book {
+  """Example field (placeholder)"""
+  id: ID!
+  name: String
+  authorId: ID!
+}
+
+type Author {
+  """Example field (placeholder)"""
+  id: ID!
+  name: String
+  description: String
+}
+
+type Query {
+  books: [Book!]!
+  book(id: ID!): Book!
+  authors: [Author!]!
+}
+
+type Mutation {
+  createBook(createBookInput: CreateBookInput!): Book!
+  updateBook(updateBookInput: UpdateBookInput!): Book!
+  removeBook(id: ID!): Book!
+  author(createAuthorInput: CreateAuthorInput!): Author!
+}
+
+input CreateBookInput {
+  name: String!
+  authorId: ID!
+}
+
+input UpdateBookInput {
+  name: String
+  authorId: ID
+  id: ID!
+}
+
+input CreateAuthorInput {
+  name: String!
+  description: String!
+}
